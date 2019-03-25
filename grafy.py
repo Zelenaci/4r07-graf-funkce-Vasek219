@@ -11,6 +11,7 @@ from tkinter import Label,Radiobutton, IntVar, Entry, LabelFrame, Message, Strin
 import pylab as lab
 
 
+
 class Application(tk.Tk):
     name = 'Graf funkce'
     
@@ -55,8 +56,8 @@ class Application(tk.Tk):
         self.doentr=Entry(self.oddolbl, textvariable=self.sdo,width=10)
         self.doentr.grid(row=2,column=2)
         
-        self.vga=Button(self,text=u"Vytvoř graf", width=7, height=4, command=self.vytgraf)
-        self.vga.grid(row=1,column=2)
+        self.vg=Button(self,text=u"Vytvoř graf", width=7, height=4, command=self.vytgraf)
+        self.vg.grid(row=1,column=2)
         
         self.grftxtlblfr=LabelFrame(self,text=u"Generuj graf z textových dat", padx=25)
         self.grftxtlblfr.grid(row=2,column=1)
@@ -67,10 +68,10 @@ class Application(tk.Tk):
         self.csentr=Entry(self.grftxtlblfr, textvariable=self.a)
         self.csentr.grid(row=1,column=1)
         
-        self.vga=Button(self.grftxtlblfr,text=u"Vyber soubor")
-        self.vga.grid(row=2,column=1)
+        self.vgs=Button(self.grftxtlblfr,text=u"Vyber soubor", command=self.vybersoubor)
+        self.vgs.grid(row=2,column=1)
         
-        self.vgb=Button(self,text=u"Vytvoř graf", width=7, height=4)
+        self.vgb=Button(self,text=u"Vytvoř graf", width=7, height=4, command=self.vytgrafsoubor)
         self.vgb.grid(row=2,column=2)
         
         self.osylblfr=LabelFrame(self,text=u"Popisky os", padx=40)
@@ -112,5 +113,33 @@ class Application(tk.Tk):
         except:
             messagebox.showerror(title='Chybné meze', message='Zadejte meze osy X\njako reálná čísla')        
 
+    def vybersoubor(self):
+        cesta= tk.filedialog.askopenfilename(title='Vyberte soubor')    
+        if cesta != '':
+            self.a.set(cesta)
+            
+    def vytgrafsoubor(self):
+        try:
+            cesta = self.a.get()
+            f = open(cesta,'r')
+            x=[]
+            y=[]
+            while 1:
+                radek=f.readline()
+                if radek=='':
+                    break
+                cisla=radek.split()
+                x.append( float(cisla[0]) )
+                y.append( float(cisla[1]) )
+            f.close()
+            lab.figure()
+            lab.plot(x,y)
+            lab.xlabel(self.osx.get())
+            lab.ylabel(self.osy.get())
+            lab.grid(True)
+            lab.show()
+        except:
+            messagebox.showerror(title='Chybný formát souboru', message='Graf se nepodařilo vytvořit,\nzkontrolujte fomát souboru.')
+        
 app = Application()
 app.mainloop()
