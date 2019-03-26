@@ -9,7 +9,7 @@ Created on Tue Feb 19 09:58:08 2019
 import tkinter as tk
 from tkinter import Label,Radiobutton, IntVar, Entry, LabelFrame, Message, StringVar, Button, messagebox
 import pylab as lab
-
+from tkinter import filedialog
 
 
 class Application(tk.Tk):
@@ -114,7 +114,7 @@ class Application(tk.Tk):
             messagebox.showerror(title='Chybné meze', message='Zadejte meze osy X\njako reálná čísla')        
 
     def vybersoubor(self):
-        cesta= tk.filedialog.askopenfilename(title='Vyberte soubor')    
+        cesta= filedialog.askopenfilename(title='Vyberte soubor')    
         if cesta != '':
             self.a.set(cesta)
             
