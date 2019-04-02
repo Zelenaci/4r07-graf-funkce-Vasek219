@@ -139,7 +139,7 @@ class Application(tk.Tk):
             lab.grid(True)
             lab.show()
         except:
-            messagebox.showerror(title='Chybný formát souboru', message='Graf se nepodařilo vytvořit,\nzkontrolujte fomát souboru.')
+            messagebox.showerror(title='Chybný formát souboru', message='Graf se nepodařilo vytvořit,\n zkontrolujte fomát souboru.')
         
 app = Application()
 app.mainloop()
